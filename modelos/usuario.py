@@ -3,7 +3,8 @@ datosUsuario = {
     "contrasena": "",
     "rol": 0,  # 0 = No hay usuario, 1 = Admin, 2 = Empleado, 3 = Cliente
     "nombre": "",
-    "apellido": ""
+    "apellido": "",
+    "pin": ""
 }
 
 def setDatoUsuario(key, value):

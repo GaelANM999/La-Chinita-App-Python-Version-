@@ -4,9 +4,7 @@ import modelos.usuario as usuario
 class login():
     
     def login(datosUsuario):
-        ADMIN = 1
-        EMPLEADO = 2
-        CLIENTE = 3
+        
         
         conn = ConexionBD.conectarBD()
         cursor = conn.cursor(dictionary=True)
@@ -14,17 +12,29 @@ class login():
         try:
             usuarioIngresado = datosUsuario.get("usuario", "")
             contrasenaIngresada = datosUsuario.get("contrasena", "")
-            query = "SELECT * FROM usuarios WHERE usuario = %s AND contrasena = %s"
-            cursor.execute(query,usuarioIngresado, contrasenaIngresada)
+            query = "SELECT id, usuario, nombre, apellido, rol_id FROM usuarios WHERE usuario = %s AND contrasena = %s"
+            cursor.execute(query, (usuarioIngresado, contrasenaIngresada))
+            resultado = cursor.fetchone()
             
-            if usuarioIngresado is None or contrasenaIngresada is None:
-                raise ValueError("Usuario o contraseña no pueden ser nulos")
+            if not all([usuarioIngresado, contrasenaIngresada]):
+                print("Hay campos vacíos")
+                return False
+           
             
-            if cursor.fetchone() is not None:
+            if resultado is not None:
+                datosDic = {
+                "id": resultado["id"],
+                "usuario": resultado["usuario"],
+                "nombre": resultado["nombre"],
+                "apellido": resultado["apellido"],
+                "rol_id": resultado["rol_id"]
+                }
                 usuario.setDatoUsuario("usuario", usuarioIngresado)
                 usuario.setDatoUsuario("contrasena", contrasenaIngresada)
-                print("Inicio de sesión exitoso")
-                return True
+                usuario.setDatoUsuario("rol", datosDic["rol_id"])
+                        
+            return True
+        
             
         except Exception as e:
             print(f"Error al iniciar sesión: {e}")

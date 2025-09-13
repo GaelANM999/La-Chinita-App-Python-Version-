@@ -1,0 +1,7 @@
+{
+    "workbench.colorCustomizations": {
+        "tab.activeBorderTop": "#FA9E9E"
+    },
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": []
+}

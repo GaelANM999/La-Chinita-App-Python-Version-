@@ -1,5 +1,11 @@
 import tkinter as tk
 from tkinter import PhotoImage
+from tkinter import messagebox
+from controladores.login import login
+from controladores.register import register
+from modelos.usuario import getDatoUsuario
+from vistas.pantallaAdmin import adminView
+from vistas.pantallaRegistro import registerView
 
 class loginView:
      # Método para centrar la pantalla
@@ -53,20 +59,52 @@ class loginView:
         buttonFrame.columnconfigure(1, weight= 1)
         
         
-        self.loginButton = tk.Button(buttonFrame, text="Iniciar sesión", bg="#BBCED4", font=('Arial', 16), command=self.test)
+        self.loginButton = tk.Button(buttonFrame, text="Iniciar sesión", bg="#BBCED4", font=('Arial', 16), command=self.loginAction)
         self.loginButton.grid(row=0, column=0, padx=10, pady=10, sticky='ew')
         
-        self.registerButton = tk.Button(buttonFrame, text="Registrarse", bg="#BBCED4", font=('Arial', 16))
+        self.registerButton = tk.Button(buttonFrame, text="Registrarse", bg="#BBCED4", font=('Arial', 16), command=self.registerAction)
         self.registerButton.grid(row=0, column=1, padx=10, pady=10, sticky='ew')
         
         
         # Iniciar el bucle principal de la ventana
         self.root.mainloop()
         
-    def test(self):
-        usuario = self.usuarioText.get()
-        contrasena = self.contrasenaText.get()
-        print(f"Usuario: {usuario}, Contraseña: {contrasena}")
+    def loginAction(self):
+        ADMIN = 1
+        EMPLEADO = 2
+        CLIENTE = 3
         
+        usuarioIngresado = self.usuarioText.get()
+        contrasenaIngresada = self.contrasenaText.get()
+
+        datosUsuario = {
+        "usuario": usuarioIngresado,
+        "contrasena": contrasenaIngresada
+        } 
         
-loginView().loginVista()
+        if login.login(datosUsuario):
+            datosUsuario = {
+            "usuario": usuarioIngresado,
+            "contrasena": contrasenaIngresada,
+            "rol": getDatoUsuario("rol")
+            }
+            
+            if int(datosUsuario["rol"]) == ADMIN:
+                self.root.destroy()
+                adminView.pantallaAdmin(self)
+                print("Login correcto ✅")
+            elif int(datosUsuario["rol"] == EMPLEADO):
+                print("Login Empleado")
+                print("Login correcto ✅")
+            elif int(datosUsuario["rol"] == CLIENTE):
+                print("Login Cliente")
+                print("Login correcto ✅")
+                
+            else:
+                messagebox.showerror("Error al iniciar sesión", "Por favor ingrese datos válidos")
+            
+        else:
+            messagebox.showinfo("Error en Inicio de sesión", "Por favor rellene todos los campos")
+    def registerAction(self):
+        self.root.destroy()
+        registerView().RegisterAction()
