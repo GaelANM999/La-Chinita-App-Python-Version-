@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import PhotoImage
 from tkinter import ttk
-from tkinter import font as ttkfont
 from db.conexion import ConexionBD
+
 
 class adminView:
     
@@ -67,7 +67,7 @@ class adminView:
         buttonFrame.columnconfigure(3, weight= 1)
         
         #botones con acciones
-        self.agregarButton = tk.Button(buttonFrame, text="Agregar", bg="#D3D4D4", font=('Arial', 16))
+        self.agregarButton = tk.Button(buttonFrame, text="Agregar", bg="#D3D4D4", font=('Arial', 16), command=self.abrirPantallaAgregar)
         self.agregarButton.grid(row=0, column=0, padx=10, pady=10, sticky='ew')
         
         self.updateButton = tk.Button(buttonFrame, text="Actualizar", bg="#D3D4D4", font=('Arial', 16))
@@ -84,6 +84,7 @@ class adminView:
         
         self.root.mainloop()
         
+    def abrirPantallaAgregar(self):
+        from vistas.pantallaAgregar import pantallaAgregar
+        pantallaAgregar().agregarVista()
         
-        
-adminView().pantallaAdmin()

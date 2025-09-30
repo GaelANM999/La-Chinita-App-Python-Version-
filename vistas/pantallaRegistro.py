@@ -3,7 +3,6 @@ from tkinter import PhotoImage
 from tkinter import messagebox
 from tkinter import simpledialog
 from controladores.register import register
-import modelos.usuario
 
 
 class registerView:
@@ -18,7 +17,7 @@ class registerView:
 
         window.geometry(f'{width}x{height}+{x}+{y}')
         
-    def RegisterAction(self):
+    def registerVista(self):
         #variables de la ventana
         self.root = tk.Tk()
         self.root.title("Registro de Usuario")

@@ -91,7 +91,7 @@ class loginView:
             
             if int(datosUsuario["rol"]) == ADMIN:
                 self.root.destroy()
-                adminView.pantallaAdmin(self)
+                adminView().pantallaAdmin()
                 print("Login correcto ✅")
             elif int(datosUsuario["rol"] == EMPLEADO):
                 print("Login Empleado")
@@ -107,4 +107,4 @@ class loginView:
             messagebox.showinfo("Error en Inicio de sesión", "Por favor rellene todos los campos")
     def registerAction(self):
         self.root.destroy()
-        registerView().RegisterAction()
+        registerView().registerVista()
