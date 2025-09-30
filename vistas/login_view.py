@@ -91,8 +91,9 @@ class loginView:
             
             if int(datosUsuario["rol"]) == ADMIN:
                 self.root.destroy()
-                adminView().pantallaAdmin()
                 print("Login correcto ✅")
+                adminView().pantallaAdmin()
+                
             elif int(datosUsuario["rol"] == EMPLEADO):
                 print("Login Empleado")
                 print("Login correcto ✅")

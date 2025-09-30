@@ -6,6 +6,6 @@ class ConexionBD:
         return mysql.connector.connect(
                                     user='root', password=''
                                     ,host='localhost'
-                                    ,database='jugueteriaPython'
+                                    ,database='jugueteria'
                                     ,port='3306'
                                     )

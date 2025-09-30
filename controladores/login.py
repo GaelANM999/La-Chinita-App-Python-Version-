@@ -39,3 +39,6 @@ class login():
         except Exception as e:
             print(f"Error al iniciar sesión: {e}")
             return False
+        finally:
+            cursor.close()
+            conn.close()
