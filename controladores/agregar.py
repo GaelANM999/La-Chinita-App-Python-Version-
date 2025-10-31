@@ -9,23 +9,29 @@ class agregar():
             conn = ConexionBD.conectarBD()
             cursor = conn.cursor(dictionary=True)
             
-            nombreIngresado = producto.get("nombre", "").strip()
-            precioIngresado = producto.get("precio", "").strip()
-            cantidadIngresada = producto.get("cantidad", "").strip()
+            nombreIngresado = datosProducto.get("nombre", "").strip()
+            precioIngresado = datosProducto.get("precio", "")
+            cantidadIngresada = datosProducto.get("cantidad", "")
             
-            producto.getDatoProducto("nombre")
             
             if not all([nombreIngresado, precioIngresado, cantidadIngresada]):
                     raise ValueError("Todos los campos son obligatorios")
-                    return False
             
             try:
-                precio = float(precio)
-                cantidad = int(cantidad)
+                precioIngresado = float(precioIngresado)
+                cantidadIngresada = int(cantidadIngresada)
             except ValueError:
                 raise ValueError("Precio y cantidad deben ser números válidos")
+            '''
+            queryCheck = "SELECT id, cantidad FROM juguetes WHERE nombre = %s"
+            cursor.execute(queryCheck, (nombreIngresado,))
+            productoExistente = cursor.fetchone()
             
-            query = "INSERT INTO juguetes (nombre, precio, cantidad VALUES (%s, %s, %s)"
+            if productoExistente:
+                pass'''
+            
+            query = """INSERT INTO juguetes (nombre, precio, cantidad)
+                        VALUES (%s, %s, %s)"""
             cursor.execute(query, (nombreIngresado, precioIngresado, cantidadIngresada))
             conn.commit()
             

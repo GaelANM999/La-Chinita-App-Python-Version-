@@ -70,7 +70,7 @@ class adminView:
         self.agregarButton = tk.Button(buttonFrame, text="Agregar", bg="#D3D4D4", font=('Arial', 16), command=self.abrirPantallaAgregar)
         self.agregarButton.grid(row=0, column=0, padx=10, pady=10, sticky='ew')
         
-        self.updateButton = tk.Button(buttonFrame, text="Actualizar", bg="#D3D4D4", font=('Arial', 16))
+        self.updateButton = tk.Button(buttonFrame, text="Actualizar", bg="#D3D4D4", font=('Arial', 16), command=self.abrirPantallaActualizar)
         self.updateButton.grid(row=0, column=1, padx=10, pady=10, sticky='ew')
         
         self.eliminarButton = tk.Button(buttonFrame, text="Eliminar", bg="#D3D4D4", font=('Arial', 16))
@@ -88,3 +88,6 @@ class adminView:
         from vistas.pantallaAgregar import pantallaAgregar
         pantallaAgregar().agregarVista()
         
+    def abrirPantallaActualizar(self):
+        from vistas.pantallaActualizar import pantallaActualizar
+        pantallaActualizar().actualizarVista()
