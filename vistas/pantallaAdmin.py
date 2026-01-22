@@ -73,10 +73,10 @@ class adminView:
         self.updateButton = tk.Button(buttonFrame, text="Actualizar", bg="#D3D4D4", font=('Arial', 16), command=self.abrirPantallaActualizar)
         self.updateButton.grid(row=0, column=1, padx=10, pady=10, sticky='ew')
         
-        self.eliminarButton = tk.Button(buttonFrame, text="Eliminar", bg="#D3D4D4", font=('Arial', 16))
+        self.eliminarButton = tk.Button(buttonFrame, text="Eliminar", bg="#D3D4D4", font=('Arial', 16), command=self.abrirPantallaEliminar)
         self.eliminarButton.grid(row=0, column=2, padx=10, pady=10, sticky='ew')
         
-        self.eliminarTodoButton = tk.Button(buttonFrame, text="Eliminar todo", bg="#D3D4D4", font=('Arial', 16))
+        self.eliminarTodoButton = tk.Button(buttonFrame, text="Eliminar todo", bg="#D3D4D4", font=('Arial', 16), command=self.abrirPantallaEliminarTodo)
         self.eliminarTodoButton.grid(row=0, column=3, padx=10, pady=10, sticky='ew')
         
         
@@ -91,3 +91,12 @@ class adminView:
     def abrirPantallaActualizar(self):
         from vistas.pantallaActualizar import pantallaActualizar
         pantallaActualizar().actualizarVista()
+
+    def abrirPantallaEliminar(self):
+        from vistas.pantallaEliminar import pantallaEliminar
+        pantallaEliminar().eliminarVista()
+        
+        
+    def abrirPantallaEliminarTodo(self):
+        from vistas.pantallaEliminarTodo import pantallaEliminarTodo
+        pantallaEliminarTodo().eliminarTodoVista()

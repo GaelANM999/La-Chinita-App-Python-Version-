@@ -17,9 +17,9 @@ class pantallaActualizar:
     def actualizarVista(self):
         #variables de la ventana
         self.root = tk.Toplevel()
-        self.root.title("Agregar Producto")
-        windowWidth = 250
-        windowHeight = 275
+        self.root.title("Actualizar Producto")
+        windowWidth = 275
+        windowHeight = 150
         icon = PhotoImage(file='./img/La Chinita.png')
        
         self.root.iconphoto(False, icon)
@@ -66,7 +66,7 @@ class pantallaActualizar:
             self.root.destroy()
             self.modalActualizacion(producto)
         else:
-            messagebox.showerror("No encontrado", "No existe el producto: ", nombreIngresado)
+            messagebox.showerror("No encontrado", f"No existe el producto: {nombreIngresado}")
             
     def modalActualizacion(self, producto):
         '''Abre la ventana donde debe ir el precio y cantidad a actualziar'''
@@ -75,17 +75,17 @@ class pantallaActualizar:
         icon = PhotoImage(file='./img/La Chinita.png')
         nuevaVentana.iconphoto(False, icon)
         nuevaVentana.configure(bg="#D3D4D4")
-        self.centerWindow(nuevaVentana, 300, 250)
+        self.centerWindow(nuevaVentana, 325, 225)
         
         tk.Label(nuevaVentana, text=f"Producto: {producto['nombre']}", bg="#D3D4D4", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=2, pady=10)
 
         tk.Label(nuevaVentana, text="Nueva cantidad:", bg="#D3D4D4", font=("Arial", 12)).grid(row=1, column=0, padx=10, pady=5)
         cantidadText = tk.Entry(nuevaVentana, font=('Arial', 12))
-        cantidadText.grid(row=1, column=1, padx=10, pady=5)
+        cantidadText.grid(row=1, column=1, padx=8, pady=5)
 
         tk.Label(nuevaVentana, text="Nuevo precio:", bg="#D3D4D4", font=("Arial", 12)).grid(row=2, column=0, padx=10, pady=5)
         precioText = tk.Entry(nuevaVentana, font=('Arial', 12))
-        precioText.grid(row=2, column=1, padx=10, pady=5)
+        precioText.grid(row=2, column=1, padx=8, pady=5)
         
     
         def confirmarActualizacion():
@@ -104,10 +104,19 @@ class pantallaActualizar:
             else:
                 messagebox.showerror("Error", "No se pudo actualizar el producto")
                 
-    
+        def cancelarModal():
+            nuevaVentana.destroy()
+          
                 
-        tk.Button(nuevaVentana, text="Actualizar", bg="#B3B4B4", font=("Arial", 14), command=confirmarActualizacion).grid(row=3, column=0, columnspan=2, pady=10)
-        tk.Button(nuevaVentana, text="Cancelar", bg="#B3B4B4", font=("Arial", 14), command=self.cancelar).grid(row=3, column=1, columnspan=2, pady=10)
+        #Frame de botones para el tamaño correcto
+        buttonFrame = tk.Frame(nuevaVentana, bg="#D3D4D4")
+        buttonFrame.grid(row=3, column=0, columnspan=2, sticky='ew', padx=10, pady=10)
+        
+        buttonFrame.columnconfigure(0, weight=1)
+        buttonFrame.columnconfigure(1, weight=1)
+        
+        tk.Button(nuevaVentana, text="Actualizar", bg="#B3B4B4", font=("Arial", 14), command=confirmarActualizacion).grid(row=3, column=0, sticky='ew', padx=5, pady=5)
+        tk.Button(nuevaVentana, text="Cancelar", bg="#B3B4B4", font=("Arial", 14), command=cancelarModal).grid(row=3, column=1, sticky='ew', padx=4, pady=4)
         
     def cancelar(self):
-            self.root.destroy()  
+            self.root.destroy()
