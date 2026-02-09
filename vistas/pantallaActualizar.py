@@ -13,63 +13,9 @@ class pantallaActualizar:
         y = (screenHeight // 2) - (height // 2)
 
         window.geometry(f'{width}x{height}+{x}+{y}')
-        
-    def actualizarVista(self):
-        #variables de la ventana
-        self.root = tk.Toplevel()
-        self.root.title("Actualizar Producto")
-        windowWidth = 275
-        windowHeight = 150
-        icon = PhotoImage(file='./img/La Chinita.png')
-       
-        self.root.iconphoto(False, icon)
-        self.root.resizable(False, False)
-        self.root.configure(bg="#D3D4D4")
-        self.centerWindow(self.root, windowWidth, windowHeight)
-        
-        self.nombreIndicador = tk.Label(self.root, text="Nombre:", bg="#D3D4D4", font=("Arial", 14, "bold"))
-        self.nombreIndicador.grid(row=0, column=0, sticky='w', padx=10, pady=5)
-        
-        self.nombreText = tk.Entry(self.root, font=('Arial', 12))
-        self.nombreText.grid(row=1, column=0, sticky='ew', padx=10, pady=5)
-        
-        #Botones
-        buttonFrame = tk.Frame(self.root, bg="#D3D4D4")
-        buttonFrame.grid( sticky='s', padx=10, pady=5)
-        
-        buttonFrame.columnconfigure(0, weight= 1)
-        buttonFrame.columnconfigure(1, weight= 1)
-        
-        self.nextButton = tk.Button(buttonFrame, text="Siguiente", bg="#B3B4B4", font=('Arial', 16), command=self.validarNombre)
-        self.nextButton.grid(row=0, column=0, padx=10, pady=10)
-        
-        self.cancelarButton = tk.Button(buttonFrame, text="Cancelar", bg="#B3B4B4", font=('Arial', 16), command=self.cancelar)
-        self.cancelarButton.grid(row=0, column=1, padx=10, pady=10)
-        
-        self.root.mainloop()
-        
-    def validarNombre(self):
-        nombreIngresado = self.nombreText.get().strip()
-        if not nombreIngresado:
-                messagebox.showerror("Error con nombre","Debe llevar un nombre")
-                
-        from db.conexion import ConexionBD
-        conn = ConexionBD.conectarBD()
-        cursor = conn.cursor(dictionary=True)
-
-        cursor.execute("SELECT * FROM juguetes WHERE nombre = %s", (nombreIngresado,))
-        producto = cursor.fetchone()
-        cursor.close()
-        conn.close()
-        
-        if producto: 
-            self.root.destroy()
-            self.modalActualizacion(producto)
-        else:
-            messagebox.showerror("No encontrado", f"No existe el producto: {nombreIngresado}")
-            
+                  
     def modalActualizacion(self, producto):
-        '''Abre la ventana donde debe ir el precio y cantidad a actualziar'''
+        '''Abre la ventana donde debe ir el precio y cantidad a actualizar'''
         nuevaVentana = tk.Toplevel()
         nuevaVentana.title(f"Actualizar: {producto['nombre']}")
         icon = PhotoImage(file='./img/La Chinita.png')

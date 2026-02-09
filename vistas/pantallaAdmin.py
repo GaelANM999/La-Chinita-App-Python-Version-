@@ -33,23 +33,23 @@ class adminView:
                         font=("Helvetica", 18, "bold"))
         
         #Tabla
-        tree = ttk.Treeview(self.root, columns=("ID", "Nombre", "Precio", "Cantidad"), show="headings")
+        self.tree = ttk.Treeview(self.root, columns=("ID", "Nombre", "Precio", "Cantidad"), show="headings")
         
         #Define column headings
-        tree.heading("ID", text="ID", anchor=tk.CENTER)
-        tree.heading("Nombre", text="Nombre", anchor=tk.CENTER)
-        tree.heading("Precio", text="Precio", anchor=tk.CENTER)
-        tree.heading("Cantidad", text="Cantidad", anchor=tk.CENTER)
+        self.tree.heading("ID", text="ID", anchor=tk.CENTER)
+        self.tree.heading("Nombre", text="Nombre", anchor=tk.CENTER)
+        self.tree.heading("Precio", text="Precio", anchor=tk.CENTER)
+        self.tree.heading("Cantidad", text="Cantidad", anchor=tk.CENTER)
         
         #Column widths
-        tree.column("ID", anchor=tk.CENTER, width=60)
-        tree.column("Nombre", anchor=tk.CENTER, width=180)
-        tree.column("Precio", anchor=tk.CENTER, width=120)
-        tree.column("Cantidad", anchor=tk.CENTER, width=170)
+        self.tree.column("ID", anchor=tk.CENTER, width=60)
+        self.tree.column("Nombre", anchor=tk.CENTER, width=180)
+        self.tree.column("Precio", anchor=tk.CENTER, width=120)
+        self.tree.column("Cantidad", anchor=tk.CENTER, width=170)
         
         
         for row in resultado:
-            tree.insert('', 'end', values=(
+            self.tree.insert('', 'end', values=(
                 row.get('id'),
                 row.get('nombre'),
                 row.get('precio'),
@@ -80,7 +80,8 @@ class adminView:
         self.eliminarTodoButton.grid(row=0, column=3, padx=10, pady=10, sticky='ew')
         
         
-        tree.pack(fill="both", expand=True, padx=20, pady=20)
+        self.tree.pack(fill="both", expand=True, padx=20, pady=20)
+        
         
         self.root.mainloop()
         
@@ -90,13 +91,76 @@ class adminView:
         
     def abrirPantallaActualizar(self):
         from vistas.pantallaActualizar import pantallaActualizar
-        pantallaActualizar().actualizarVista()
+        from tkinter import messagebox
+        
+        # Verificar que haya una fila seleccionada
+        seleccion = self.tree.selection()
+        if not seleccion:
+            messagebox.showerror("Error", "Debes seleccionar un producto de la tabla")
+            return
+        
+        # Obtener los valores de la fila seleccionada
+        item = self.tree.item(seleccion[0])
+        valores = item["values"]
+        
+        # Crear el diccionario del producto
+        producto = {
+            "id": valores[0],
+            "nombre": valores[1],
+            "precio": valores[2],
+            "cantidad": valores[3]
+        }
+        
+        # Abrir el modal con los datos del producto
+        pantallaActualizar().modalActualizacion(producto)
 
     def abrirPantallaEliminar(self):
         from vistas.pantallaEliminar import pantallaEliminar
-        pantallaEliminar().eliminarVista()
+        from tkinter import messagebox
+        
+        # Verificar que haya una fila seleccionada
+        seleccion = self.tree.selection()
+        if not seleccion:
+            messagebox.showerror("Error", "Debes seleccionar un producto de la tabla")
+            return
+        
+        # Obtener los valores de la fila seleccionada
+        item = self.tree.item(seleccion[0])
+        valores = item["values"]
+        
+        # Crear el diccionario del producto
+        producto = {
+            "id": valores[0],
+            "nombre": valores[1],
+            "precio": valores[2],
+            "cantidad": valores[3]
+        }
+        
+        # Abrir el modal con los datos del producto
+        pantallaEliminar().modalEliminar(producto)
         
         
     def abrirPantallaEliminarTodo(self):
         from vistas.pantallaEliminarTodo import pantallaEliminarTodo
-        pantallaEliminarTodo().eliminarTodoVista()
+        from tkinter import messagebox
+    
+        # Verificar que haya una fila seleccionada
+        seleccion = self.tree.selection()
+        if not seleccion:
+            messagebox.showerror("Error", "Debes seleccionar un producto de la tabla")
+            return
+        
+        # Obtener los valores de la fila seleccionada
+        item = self.tree.item(seleccion[0])
+        valores = item["values"]
+        
+        # Crear el diccionario del producto
+        producto = {
+            "id": valores[0],
+            "nombre": valores[1],
+            "precio": valores[2],
+            "cantidad": valores[3]
+        }
+        
+        # Abrir el modal con los datos del producto
+        pantallaEliminarTodo().eliminarTodoProducto(producto)

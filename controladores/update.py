@@ -32,8 +32,8 @@ class update:
                     raise ValueError("falló el parse")
                 
                 
-                queryUpdate = "UPDATE juguetes SET cantidad = %s, precio = %s WHERE id = %s"
-                cursor.execute(queryUpdate, (cantidad, precio, producto_id))
+                queryUpdate = "UPDATE juguetes SET precio = %s, cantidad = %s WHERE id = %s"
+                cursor.execute(queryUpdate, (precio, cantidad, producto_id))
                 conn.commit()
                 
                 cursor.close()

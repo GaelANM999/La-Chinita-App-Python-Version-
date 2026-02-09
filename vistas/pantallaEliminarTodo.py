@@ -12,7 +12,7 @@ class pantallaEliminarTodo:
         y = (screenHeight // 2) - (height // 2)
 
         window.geometry(f'{width}x{height}+{x}+{y}')
-        
+        '''
     def eliminarTodoVista(self):
         #variables de la ventana
         self.root = tk.Toplevel()
@@ -45,10 +45,10 @@ class pantallaEliminarTodo:
         self.cancelarButton = tk.Button(buttonFrame, text="Cancelar", bg="#B3B4B4", font=('Arial', 16), command=self.cancelar)
         self.cancelarButton.grid(row=0, column=1, padx=10, pady=10)
         
-        self.root.mainloop()
+        self.root.mainloop()'''
         
-    def eliminarTodoProducto(self):
-        nombreIngresado = self.nombreText.get().strip()
+    def eliminarTodoProducto(self, producto):
+        nombreIngresado = producto["nombre"]
         if not nombreIngresado:
                 messagebox.showerror("Error con nombre","Debe llevar un nombre")
                 
