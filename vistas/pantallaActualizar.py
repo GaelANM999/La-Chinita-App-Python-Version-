@@ -21,26 +21,28 @@ class pantallaActualizar:
         icon = PhotoImage(file='./img/La Chinita.png')
         nuevaVentana.iconphoto(False, icon)
         nuevaVentana.configure(bg="#D3D4D4")
-        self.centerWindow(nuevaVentana, 325, 225)
+        nuevaVentana.columnconfigure(0, weight=1)
+        nuevaVentana.columnconfigure(1, weight=1)
+        self.centerWindow(nuevaVentana, 330, 200)
         
         tk.Label(nuevaVentana, text=f"Producto: {producto['nombre']}", bg="#D3D4D4", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=2, pady=10)
 
-        tk.Label(nuevaVentana, text="Nueva cantidad:", bg="#D3D4D4", font=("Arial", 12)).grid(row=1, column=0, padx=10, pady=5)
-        cantidadText = tk.Entry(nuevaVentana, font=('Arial', 12))
-        cantidadText.grid(row=1, column=1, padx=8, pady=5)
-
-        tk.Label(nuevaVentana, text="Nuevo precio:", bg="#D3D4D4", font=("Arial", 12)).grid(row=2, column=0, padx=10, pady=5)
+        tk.Label(nuevaVentana, text="Nuevo precio:", bg="#D3D4D4", font=("Arial", 12)).grid(row=1, column=0, padx=10, pady=5)
         precioText = tk.Entry(nuevaVentana, font=('Arial', 12))
         precioText.grid(row=2, column=1, padx=8, pady=5)
         
+        tk.Label(nuevaVentana, text="Nueva cantidad:", bg="#D3D4D4", font=("Arial", 12)).grid(row=2, column=0, padx=10, pady=5)
+        cantidadText = tk.Entry(nuevaVentana, font=('Arial', 12))
+        cantidadText.grid(row=1, column=1, padx=8, pady=5)
+        
     
         def confirmarActualizacion():
-            cantidad = cantidadText.get().strip()
             precio = precioText.get().strip()
+            cantidad = cantidadText.get().strip()
             datos = {
                 "nombre" : producto["nombre"],
-                "cantidad" : cantidad,
-                "precio" : precio     
+                "precio" : precio,
+                "cantidad" : cantidad     
             }
             resultado = update.actualizar(datos)
             
@@ -61,8 +63,8 @@ class pantallaActualizar:
         buttonFrame.columnconfigure(0, weight=1)
         buttonFrame.columnconfigure(1, weight=1)
         
-        tk.Button(nuevaVentana, text="Actualizar", bg="#B3B4B4", font=("Arial", 14), command=confirmarActualizacion).grid(row=3, column=0, sticky='ew', padx=5, pady=5)
-        tk.Button(nuevaVentana, text="Cancelar", bg="#B3B4B4", font=("Arial", 14), command=cancelarModal).grid(row=3, column=1, sticky='ew', padx=4, pady=4)
+        tk.Button(buttonFrame, text="Actualizar", bg="#B3B4B4", font=("Arial", 14), command=confirmarActualizacion).grid(row=3, column=0, sticky='ew', padx=5, pady=5)
+        tk.Button(buttonFrame, text="Cancelar", bg="#B3B4B4", font=("Arial", 14), command=cancelarModal).grid(row=3, column=1, sticky='ew', padx=4, pady=4)
         
     def cancelar(self):
             self.root.destroy()

@@ -79,11 +79,64 @@ class adminView:
         self.eliminarTodoButton = tk.Button(buttonFrame, text="Eliminar todo", bg="#D3D4D4", font=('Arial', 16), command=self.abrirPantallaEliminarTodo)
         self.eliminarTodoButton.grid(row=0, column=3, padx=10, pady=10, sticky='ew')
         
+        # Frame para la barra de búsqueda
+        searchFrame = tk.Frame(self.root, bg="#D3D4D4")
+        searchFrame.pack(pady=5, padx=50, fill='x')
+
+        buscarIndicador = tk.Label(searchFrame, text='Búsqueda:', bg="#D3D4D4", font=("Arial", 14, "bold"))
+        buscarIndicador.pack(side='left', padx=(0, 10))
+        
+        self.buscarText = tk.Entry(searchFrame, font=('Arial', 14))
+        self.buscarText.pack(side='left', fill='x', expand=True)
+        self.buscarText.bind('<Return>', lambda event: self.buscarProducto())
+        
+        buscarButton = tk.Button(searchFrame, text='Buscar', font=("Arial", 14, "bold"), command=self.buscarProducto)
+        buscarButton.pack(side='right', padx=(10,10))
         
         self.tree.pack(fill="both", expand=True, padx=20, pady=20)
         
-        
+        self.actualizarTabla()
         self.root.mainloop()
+        
+    def actualizarTabla(self):
+        if not self.buscarText.get():
+            seleccion = self.tree.selection()
+            if not seleccion:
+                for item in self.tree.get_children():
+                    self.tree.delete(item)
+            
+                conn = ConexionBD.conectarBD()
+                cursor = conn.cursor(dictionary=True)
+                cursor.execute("SELECT id, nombre, precio, cantidad FROM juguetes")
+                resultado = cursor.fetchall()
+        
+                for row in resultado:
+                    self.tree.insert('', 'end', values=(
+                        row.get('id'),
+                        row.get('nombre'),
+                        row.get('precio'),
+                        row.get('cantidad'),
+                    ))
+        self.root.after(3000, self.actualizarTabla)
+        
+    def buscarProducto(self):
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+        
+        juguete = self.buscarText.get()
+        queryBuscar = f"SELECT id, nombre, precio, cantidad FROM juguetes WHERE nombre = '{juguete}'"
+        conn = ConexionBD.conectarBD()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(queryBuscar)  
+        resultadoBuscar = cursor.fetchall()
+        
+        for row in resultadoBuscar:
+                self.tree.insert('', 'end', values=(
+                    row.get('id'),
+                    row.get('nombre'),
+                    row.get('precio'),
+                    row.get('cantidad'),
+                ))
         
     def abrirPantallaAgregar(self):
         from vistas.pantallaAgregar import pantallaAgregar

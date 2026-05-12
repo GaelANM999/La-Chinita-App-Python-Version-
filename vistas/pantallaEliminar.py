@@ -20,7 +20,7 @@ class pantallaEliminar:
             icon = PhotoImage(file='./img/La Chinita.png')
             nuevaVentana.iconphoto(False, icon)
             nuevaVentana.configure(bg="#D3D4D4")
-            self.centerWindow(nuevaVentana, 370, 225)
+            self.centerWindow(nuevaVentana, 370, 180)
         
             tk.Label(nuevaVentana, text=f"Producto: {producto['nombre']}", bg="#D3D4D4", font=("Arial", 14, "bold")).grid(row=0, column=0, columnspan=2, pady=10)
 

@@ -22,17 +22,24 @@ class update:
             
             if productoExistente:
                 producto_id = productoExistente.get("id")
-                cantidadIngresada = datosProducto.get("cantidad","").strip()
                 precioIngresado = datosProducto.get("precio", "").strip()
+                cantidadIngresada = datosProducto.get("cantidad","").strip()
+                
                 
                 try:
+                      
                     cantidad = int(cantidadIngresada)
                     precio = float(precioIngresado)
                 except ValueError:
                     raise ValueError("falló el parse")
                 
-                
-                queryUpdate = "UPDATE juguetes SET precio = %s, cantidad = %s WHERE id = %s"
+                queryUpdate = ""
+                if precioIngresado and cantidadIngresada:
+                    queryUpdate = "UPDATE juguetes SET precio = %s, cantidad = %s WHERE id = %s"
+                elif precioIngresado and cantidadIngresada is None:
+                    queryUpdate = "UPDATE juguetes SET precio = %s WHERE id = %s"
+                elif precioIngresado is None and cantidadIngresada:
+                    queryUpdate = "UPDATE juguetes SET cantidad = %s WHERE id = %s"
                 cursor.execute(queryUpdate, (precio, cantidad, producto_id))
                 conn.commit()
                 
