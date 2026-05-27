@@ -29,7 +29,7 @@ class loginView:
         windowWidth = 500
         windowHeight = 375
         icon = PhotoImage(file=resource_path('img/La Chinita.png'))
-        imagen = PhotoImage(file='img/La Chinita.png')
+        imagen = PhotoImage(file=resource_path('img/La Chinita.png'))
        
         self.root.iconphoto(False, icon)
         self.root.resizable(False, False)
