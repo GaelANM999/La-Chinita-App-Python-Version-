@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox, PhotoImage
 from controladores.update import update
+from util.util import resource_path
 
 class pantallaActualizar:
     # Método para centrar la pantalla
@@ -18,7 +19,7 @@ class pantallaActualizar:
         '''Abre la ventana donde debe ir el precio y cantidad a actualizar'''
         nuevaVentana = tk.Toplevel()
         nuevaVentana.title(f"Actualizar: {producto['nombre']}")
-        icon = PhotoImage(file='./img/La Chinita.png')
+        icon = PhotoImage(file=resource_path('img/La Chinita.png'))
         nuevaVentana.iconphoto(False, icon)
         nuevaVentana.configure(bg="#D3D4D4")
         nuevaVentana.columnconfigure(0, weight=1)

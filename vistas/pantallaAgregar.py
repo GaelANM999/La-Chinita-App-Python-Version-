@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import PhotoImage
 from controladores.agregar import agregar
+from util.util import resource_path
 
 class pantallaAgregar:
     # Método para centrar la pantalla
@@ -21,7 +22,7 @@ class pantallaAgregar:
         self.root.title("Agregar Producto")
         windowWidth = 250
         windowHeight = 275
-        icon = PhotoImage(file='./img/La Chinita.png')
+        icon = PhotoImage(file=resource_path('img/La Chinita.png'))
        
         self.root.iconphoto(False, icon)
         self.root.resizable(False, False)

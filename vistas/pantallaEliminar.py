@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox, PhotoImage
 from controladores.eliminar import delete
+from util.util import resource_path
 
 class pantallaEliminar:
     @staticmethod
@@ -17,7 +18,7 @@ class pantallaEliminar:
         #Abre la ventana donde debe ir el precio y cantidad a actualziar
             nuevaVentana = tk.Toplevel()
             nuevaVentana.title(f"Eliminar: {producto['nombre']}")
-            icon = PhotoImage(file='./img/La Chinita.png')
+            icon =PhotoImage(file=resource_path('img/La Chinita.png'))
             nuevaVentana.iconphoto(False, icon)
             nuevaVentana.configure(bg="#D3D4D4")
             self.centerWindow(nuevaVentana, 370, 180)

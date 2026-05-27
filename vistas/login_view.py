@@ -8,6 +8,7 @@ from vistas.pantallaAdmin import adminView
 from vistas.pantallaRegistro import registerView
 from vistas.pantallaEmpleado import empleadoView
 from vistas.pantallaCliente import clienteView
+from util.util import resource_path
 
 class loginView:
      # Método para centrar la pantalla
@@ -27,7 +28,7 @@ class loginView:
         self.root.title("Inicio de sesión")
         windowWidth = 500
         windowHeight = 375
-        icon = PhotoImage(file='img/La Chinita.png')
+        icon = PhotoImage(file=resource_path('img/La Chinita.png'))
         imagen = PhotoImage(file='img/La Chinita.png')
        
         self.root.iconphoto(False, icon)

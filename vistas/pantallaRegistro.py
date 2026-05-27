@@ -3,6 +3,7 @@ from tkinter import PhotoImage
 from tkinter import messagebox
 from tkinter import simpledialog
 from controladores.register import register
+from util.util import resource_path
 
 
 class registerView:
@@ -23,7 +24,7 @@ class registerView:
         self.root.title("Registro de Usuario")
         windowWidth = 600
         windowHeight = 475
-        icon = PhotoImage(file='img/La Chinita.png')
+        icon = PhotoImage(file=resource_path('img/La Chinita.png'))
        
         self.root.iconphoto(False, icon)
         self.root.resizable(False, False)

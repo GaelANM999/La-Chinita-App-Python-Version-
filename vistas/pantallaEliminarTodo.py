@@ -30,7 +30,6 @@ class pantallaEliminarTodo:
         if producto:
             deleteAll.eliminarTodo(producto) 
             messagebox.showinfo("Baja de producto exitosa","Existencia de producto eliminado con éxito" )
-            self.root.destroy()
             
         else:
             messagebox.showerror("No encontrado", f"No existe el producto: {nombreIngresado}")

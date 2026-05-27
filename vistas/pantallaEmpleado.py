@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import PhotoImage
 from tkinter import ttk
 from db.conexion import ConexionBD
-
+from util.util import resource_path
 
 class empleadoView:
     
@@ -18,7 +18,7 @@ class empleadoView:
         self.root.state('zoomed')
         self.root.title("La Chinita App Empleado")
         
-        icon = PhotoImage(file='img/La Chinita.png')
+        icon = PhotoImage(file=resource_path('img/La Chinita.png'))
        
         self.root.iconphoto(False, icon)
         self.root.resizable(False, False)
