@@ -10,7 +10,7 @@ class clienteView:
     def pantallaCliente(self):
         
         conn = ConexionBD.conectarBD()
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
         query = "SELECT id, nombre, precio, cantidad FROM juguetes"
         cursor.execute(query)   
         resultado = cursor.fetchall()
@@ -85,7 +85,7 @@ class clienteView:
                     self.tree.delete(item)
             
                 conn = ConexionBD.conectarBD()
-                cursor = conn.cursor(dictionary=True)
+                cursor = conn.cursor()
                 cursor.execute("SELECT id, nombre, precio, cantidad FROM juguetes")
                 resultado = cursor.fetchall()
         
@@ -106,7 +106,7 @@ class clienteView:
         queryBuscar = "SELECT id, nombre, precio, cantidad FROM juguetes WHERE LOWER(nombre) LIKE LOWER(%s)"
         jugueteBuscar = f"%{juguete}%"
         conn = ConexionBD.conectarBD()
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
         cursor.execute(queryBuscar, (jugueteBuscar,))
         resultadoBuscar = cursor.fetchall()
         

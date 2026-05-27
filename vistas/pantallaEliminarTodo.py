@@ -20,7 +20,7 @@ class pantallaEliminarTodo:
                 
         from db.conexion import ConexionBD
         conn = ConexionBD.conectarBD()
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM juguetes WHERE nombre = %s", (nombreIngresado,))
         producto = cursor.fetchone()

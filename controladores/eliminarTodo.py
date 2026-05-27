@@ -7,7 +7,7 @@ class deleteAll:
         
         try:
             conn = ConexionBD.conectarBD()
-            cursor = conn.cursor(dictionary=True)
+            cursor = conn.cursor()
                 
             nombreIngresado = str(datosProducto.get("nombre","").strip())
             

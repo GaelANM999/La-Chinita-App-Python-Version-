@@ -7,7 +7,7 @@ class login():
         
         
         conn = ConexionBD.conectarBD()
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
         
         try:
             usuarioIngresado = datosUsuario.get("usuario", "")

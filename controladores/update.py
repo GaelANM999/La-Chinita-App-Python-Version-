@@ -7,7 +7,7 @@ class update:
         
         try:
             conn = ConexionBD.conectarBD()
-            cursor = conn.cursor(dictionary=True)
+            cursor = conn.cursor()
                 
             nombreIngresado = datosProducto.get("nombre","").strip()
             

@@ -6,7 +6,7 @@ class register():
     def registerUser(datosUsuario):
         
         conn = ConexionBD.conectarBD()
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
         
         try:
             usuarioIngresado = datosUsuario.get("usuario", "").strip()
