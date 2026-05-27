@@ -25,22 +25,31 @@ class update:
                 precioIngresado = datosProducto.get("precio", "").strip()
                 cantidadIngresada = datosProducto.get("cantidad","").strip()
                 
-                
-                try:
-                      
-                    cantidad = int(cantidadIngresada)
-                    precio = float(precioIngresado)
-                except ValueError:
-                    raise ValueError("falló el parse")
-                
-                queryUpdate = ""
                 if precioIngresado and cantidadIngresada:
+                    try:
+                        precio = float(precioIngresado)
+                        cantidad = int(cantidadIngresada)
+                    except ValueError:
+                        raise ValueError("formato inválido")
                     queryUpdate = "UPDATE juguetes SET precio = %s, cantidad = %s WHERE id = %s"
-                elif precioIngresado and cantidadIngresada is None:
+                    cursor.execute(queryUpdate, (precio, cantidad, producto_id))
+                    
+                elif precioIngresado and not cantidadIngresada:
+                    try:
+                        precio = float(precioIngresado)
+                    except ValueError:
+                        raise ValueError("Precio con formato inválido")
                     queryUpdate = "UPDATE juguetes SET precio = %s WHERE id = %s"
-                elif precioIngresado is None and cantidadIngresada:
+                    cursor.execute(queryUpdate, (precio, producto_id))
+                elif not precioIngresado and cantidadIngresada:
+                    try:
+                        cantidad = int(cantidadIngresada)
+                    except ValueError:
+                        raise ValueError("Cantidad con formato inválido")
                     queryUpdate = "UPDATE juguetes SET cantidad = %s WHERE id = %s"
-                cursor.execute(queryUpdate, (precio, cantidad, producto_id))
+                    cursor.execute(queryUpdate, (cantidad, producto_id))
+                else:
+                    raise ValueError("Debes ingresar por lo menos un campo a actualizar")
                 conn.commit()
                 
                 cursor.close()

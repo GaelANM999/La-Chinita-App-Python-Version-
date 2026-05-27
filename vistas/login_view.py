@@ -6,6 +6,8 @@ from controladores.register import register
 from modelos.usuario import getDatoUsuario
 from vistas.pantallaAdmin import adminView
 from vistas.pantallaRegistro import registerView
+from vistas.pantallaEmpleado import empleadoView
+from vistas.pantallaCliente import clienteView
 
 class loginView:
      # Método para centrar la pantalla
@@ -95,11 +97,13 @@ class loginView:
                 adminView().pantallaAdmin()
                 
             elif int(datosUsuario["rol"] == EMPLEADO):
-                print("Login Empleado")
+                self.root.destroy()
                 print("Login correcto ✅")
+                empleadoView().pantallaEmpleado()
             elif int(datosUsuario["rol"] == CLIENTE):
-                print("Login Cliente")
+                self.root.destroy()
                 print("Login correcto ✅")
+                clienteView().pantallaCliente()
                 
             else:
                 messagebox.showerror("Error al iniciar sesión", "Por favor ingrese datos válidos")

@@ -22,13 +22,6 @@ class agregar():
                 cantidadIngresada = int(cantidadIngresada)
             except ValueError:
                 raise ValueError("Precio y cantidad deben ser números válidos")
-            '''
-            queryCheck = "SELECT id, cantidad FROM juguetes WHERE nombre = %s"
-            cursor.execute(queryCheck, (nombreIngresado,))
-            productoExistente = cursor.fetchone()
-            
-            if productoExistente:
-                pass'''
             
             query = """INSERT INTO juguetes (nombre, precio, cantidad)
                         VALUES (%s, %s, %s)"""

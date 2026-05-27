@@ -124,10 +124,11 @@ class adminView:
             self.tree.delete(item)
         
         juguete = self.buscarText.get()
-        queryBuscar = f"SELECT id, nombre, precio, cantidad FROM juguetes WHERE nombre = '{juguete}'"
+        queryBuscar = "SELECT id, nombre, precio, cantidad FROM juguetes WHERE LOWER(nombre) LIKE LOWER(%s)"
+        jugueteBuscar = f"%{juguete}%"
         conn = ConexionBD.conectarBD()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute(queryBuscar)  
+        cursor.execute(queryBuscar, (jugueteBuscar,))
         resultadoBuscar = cursor.fetchall()
         
         for row in resultadoBuscar:
